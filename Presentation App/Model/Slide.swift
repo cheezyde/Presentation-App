@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+struct Slide {
+    var type: SlideType
+    var content: String
+}
+
+enum SlideType {
+    case image
+    case video
+}
