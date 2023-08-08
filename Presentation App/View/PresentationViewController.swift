@@ -7,11 +7,14 @@
 
 import UIKit
 import SnapKit
+import AVKit
+import AVFoundation
 
 final class PresentationViewController: UIViewController {
     
     // MARK: - Properties
     var presenter: SlidePresenter?
+    private let playerController = AVPlayerViewController()
     // MARK: - UI
     private lazy var slideContainer: UIView = {
         let view = UIView()
@@ -60,11 +63,11 @@ final class PresentationViewController: UIViewController {
 
     // MARK: - Setup Views
     private func setupViews() {
-        [
-         slideContainer,
-         slideImageView,
+        [slideContainer,
          backButton,
          nextButton].forEach {view.addSubview($0)}
+        slideContainer.addSubview(slideImageView)
+        slideContainer.addSubview(playerController.view)
         view.backgroundColor = .white
     }
     
@@ -93,6 +96,12 @@ final class PresentationViewController: UIViewController {
             make.top.equalToSuperview().offset(100)
             make.height.equalTo(550)
             make.width.equalTo(750)
+        }
+        
+        playerController.view.snp.makeConstraints { make in
+            make.center.equalTo(slideContainer)
+            make.height.equalTo(500)
+            make.width.equalTo(700)
         }
 
         slideImageView.snp.makeConstraints { make in
@@ -128,8 +137,16 @@ extension PresentationViewController: PresentationView {
     
     func loadSlide(slide: Slide) {
         if slide.type == .image {
+            playerController.view.isHidden = true
             slideImageView.image = UIImage(named: slide.content)
+        } else {
+            playerController.view.isHidden = false
+            guard let path = Bundle.main.path(forResource: slide.content, ofType:"mov") else {
+                debugPrint("video.mp4 not found")
+                return
+            }
+            let player = AVPlayer(url: URL(fileURLWithPath: path))
+            playerController.player = player
         }
-            
     }
 }
