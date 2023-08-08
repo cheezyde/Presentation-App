@@ -8,22 +8,36 @@
 import UIKit
 import SnapKit
 
-final class PresentationViewController: UIViewController {
+final class PresentationViewController: UIViewController, MediaView {
+    
+    // MARK: - Properties
+    var presenter: SlidePresenter?
     // MARK: - UI
     private lazy var slideView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "globe")
         return imageView
     }()
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .blue
+        let image = UIImage(systemName: "arrowshape.left.fill",
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 140,
+                                                                           weight: .bold,
+                                                                           scale: .large))?
+            .withTintColor(UIColor(named: "ButtonColor") ?? .red, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(prevButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .blue
+        let image = UIImage(systemName: "arrowshape.right.fill",
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 140,
+                                                                           weight: .bold,
+                                                                           scale: .large))?
+            .withTintColor(UIColor(named: "ButtonColor") ?? .red, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -32,6 +46,8 @@ final class PresentationViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
+        view.backgroundColor = UIColor(named: "PrimaryColor")
+        presenter = SlidePresenter(view: self, slideService: SlideService())
     }
     
 
@@ -43,6 +59,23 @@ final class PresentationViewController: UIViewController {
         view.backgroundColor = .white
     }
     
+    func showMedia(_ mediaItem: Slide) {
+
+        slideView.image = UIImage(named: mediaItem.content)
+
+    }
+    
+    @objc func prevButtonTapped() {
+        if let presenter = presenter {
+            presenter.loadPreviousMedia()
+        }
+    }
+
+    @objc func nextButtonTapped() {
+        if let presenter = presenter {
+            presenter.loadNextMedia()
+        }
+    }
     // MARK: - Setup Constraints:
     private func setupConstraints() {
         
@@ -54,13 +87,14 @@ final class PresentationViewController: UIViewController {
         backButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(self.view.bounds.width / 6.0)
             make.bottom.equalToSuperview().offset(-self.view.bounds.height / 6.0)
-            make.size.equalTo(CGSize(width: 100, height: 50))
         }
         nextButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-self.view.bounds.width / 6.0)
             make.bottom.equalToSuperview().offset(-self.view.bounds.height / 6.0)
-            make.size.equalTo(CGSize(width: 100, height: 50))
         }
     }
 }
 
+protocol MediaView: AnyObject {
+    func showMedia(_ slide: Slide)
+}
