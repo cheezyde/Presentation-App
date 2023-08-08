@@ -7,7 +7,8 @@
 
 import Foundation
 
-class SlidePresenter {
+final class SlidePresenter {
+    // MARK: - Properties
     private let slideService: SlideService
     weak var presentationView: PresentationView?
     private var slidesTotal = 0
@@ -26,11 +27,13 @@ class SlidePresenter {
         self.presentationView = presentationView
         self.slideService = slideService
     }
-
-    func getSlide() {
+    
+    // MARK: - Action
+    private func getSlide() {
         slideService.fetchSlide(index: currentIndex) { slide, total in
             self.slidesTotal = total
             self.presentationView?.loadSlide(slide: slide)
+            
             if self.currentIndex == 0 {
                 self.presentationView?.setupInitialButtons()
             } else if self.currentIndex == total - 1 {
@@ -41,16 +44,18 @@ class SlidePresenter {
         }
     }
     
-    func loadNextMedia() {
-        currentIndex = (currentIndex + 1) % slidesTotal
-        print(currentIndex)
+    public func loadNextSlide() {
+        currentIndex += 1
         getSlide()
     }
 
-    func loadPreviousMedia() {
-        currentIndex = (currentIndex + slidesTotal - 1) % slidesTotal
+    public func loadPreviousSlide() {
+        currentIndex = (currentIndex - 1)
         getSlide()
     }
+    
+    public func initialSetup() {
+        getSlide()    }
 }
 
 

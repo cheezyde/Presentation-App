@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-final class PresentationViewController: UIViewController, MediaView {
+final class PresentationViewController: UIViewController {
     
     // MARK: - Properties
     var presenter: SlidePresenter?
     // MARK: - UI
-    private lazy var slideView: UIImageView = {
+    private lazy var slideImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
@@ -47,39 +47,38 @@ final class PresentationViewController: UIViewController, MediaView {
         setupViews()
         setupConstraints()
         view.backgroundColor = UIColor(named: "PrimaryColor")
-        presenter = SlidePresenter(view: self, slideService: SlideService())
     }
     
 
     // MARK: - Setup Views
     private func setupViews() {
-        [slideView,
+        [slideImageView,
          backButton,
          nextButton].forEach {view.addSubview($0)}
         view.backgroundColor = .white
     }
     
-    func showMedia(_ mediaItem: Slide) {
-
-        slideView.image = UIImage(named: mediaItem.content)
-
+    private func setupSlide() {
+        presenter = SlidePresenter(presentationView: self, slideService: SlideService())
+        presenter?.initialSetup()
     }
     
+    // MARK: - Action
     @objc func prevButtonTapped() {
         if let presenter = presenter {
-            presenter.loadPreviousMedia()
+            presenter.loadPreviousSlide()
         }
     }
 
     @objc func nextButtonTapped() {
         if let presenter = presenter {
-            presenter.loadNextMedia()
+            presenter.loadNextSlide()
         }
     }
     // MARK: - Setup Constraints:
     private func setupConstraints() {
         
-        slideView.snp.makeConstraints { make in
+        slideImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(120)
             make.height.equalTo(500)
@@ -96,7 +95,25 @@ final class PresentationViewController: UIViewController, MediaView {
         }
     }
 }
-
-protocol MediaView: AnyObject {
-    func showMedia(_ slide: Slide)
+// MARK: - Presentater
+extension PresentationViewController: PresentationView {
+    func setupInitialButtons() {
+        backButton.isHidden = true
+    }
+    
+    func setupFinalButtons() {
+        nextButton.isHidden = true
+    }
+    
+    func setupDefaultButtons() {
+        backButton.isHidden = false
+        nextButton.isHidden = false
+    }
+    
+    func loadSlide(slide: Slide) {
+        if slide.type == .image {
+            slideImageView.image = UIImage(named: slide.content)
+        }
+            
+    }
 }

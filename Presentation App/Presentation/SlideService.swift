@@ -5,7 +5,7 @@
 //  Created by MacBook on 08.08.2023.
 //
 
-class SlideService {
+final class SlideService {
     let slides = [Slide(type: .image, content: "MVP_test_intro"),
                   Slide(type: .image, content: "MVP_test (dragged)"),
                   Slide(type: .image, content: "MVP_test (dragged) 2")]
