@@ -13,10 +13,17 @@ final class PresentationViewController: UIViewController {
     // MARK: - Properties
     var presenter: SlidePresenter?
     // MARK: - UI
+    private lazy var slideContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "SecondaryColor")
+        return view
+    }()
+    
     private lazy var slideImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
+    
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "arrowshape.left.fill",
@@ -46,13 +53,16 @@ final class PresentationViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
+        setupSlide()
         view.backgroundColor = UIColor(named: "PrimaryColor")
     }
     
 
     // MARK: - Setup Views
     private func setupViews() {
-        [slideImageView,
+        [
+         slideContainer,
+         slideImageView,
          backButton,
          nextButton].forEach {view.addSubview($0)}
         view.backgroundColor = .white
@@ -78,9 +88,15 @@ final class PresentationViewController: UIViewController {
     // MARK: - Setup Constraints:
     private func setupConstraints() {
         
-        slideImageView.snp.makeConstraints { make in
+        slideContainer.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(120)
+            make.top.equalToSuperview().offset(100)
+            make.height.equalTo(550)
+            make.width.equalTo(750)
+        }
+
+        slideImageView.snp.makeConstraints { make in
+            make.center.equalTo(slideContainer)
             make.height.equalTo(500)
             make.width.equalTo(700)
         }
