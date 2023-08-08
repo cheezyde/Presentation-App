@@ -16,6 +16,7 @@
 		FA8E776F2A8039C400DFCDF8 /* SlidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8E776E2A8039C400DFCDF8 /* SlidePresenter.swift */; };
 		FA8E77712A8039D900DFCDF8 /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8E77702A8039D900DFCDF8 /* Slide.swift */; };
 		FA8E77742A803A8200DFCDF8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA8E77732A803A8200DFCDF8 /* SnapKit */; };
+		FA8E77782A82548500DFCDF8 /* SlideService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8E77772A82548500DFCDF8 /* SlideService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		FA8E77652A802D9F00DFCDF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA8E776E2A8039C400DFCDF8 /* SlidePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresenter.swift; sourceTree = "<group>"; };
 		FA8E77702A8039D900DFCDF8 /* Slide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
+		FA8E77772A82548500DFCDF8 /* SlideService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				FA8E776E2A8039C400DFCDF8 /* SlidePresenter.swift */,
+				FA8E77772A82548500DFCDF8 /* SlideService.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				FA8E776F2A8039C400DFCDF8 /* SlidePresenter.swift in Sources */,
 				FA8E775C2A802D9C00DFCDF8 /* PresentationViewController.swift in Sources */,
 				FA8E77582A802D9C00DFCDF8 /* AppDelegate.swift in Sources */,
+				FA8E77782A82548500DFCDF8 /* SlideService.swift in Sources */,
 				FA8E775A2A802D9C00DFCDF8 /* SceneDelegate.swift in Sources */,
 				FA8E77712A8039D900DFCDF8 /* Slide.swift in Sources */,
 			);
