@@ -80,8 +80,10 @@ final class PresentationViewController: UIViewController, MediaView {
     private func setupConstraints() {
         
         slideView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(200)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(120)
+            make.height.equalTo(500)
+            make.width.equalTo(700)
         }
         
         backButton.snp.makeConstraints { make in
