@@ -89,17 +89,22 @@ final class PresentationViewController: UIViewController {
     
     // MARK: - Setup Constraints:
     private func setupConstraints() {
+        let slideContainerHeight = 550
+        let slideContainerWidth = 750
+        let slideHeight = slideContainerHeight - 50
+        let slideWidth = slideContainerWidth - 50
+        
         slideContainer.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(100)
-            make.height.equalTo(550)
-            make.width.equalTo(750)
+            make.height.equalTo(slideContainerHeight)
+            make.width.equalTo(slideContainerWidth)
         }
         
         playerController.view.snp.makeConstraints { make in
             make.center.equalTo(slideContainer)
-            make.height.equalTo(500)
-            make.width.equalTo(700)
+            make.height.equalTo(slideHeight)
+            make.width.equalTo(slideWidth)
         }
 
         slideImageView.snp.makeConstraints { make in
@@ -136,6 +141,7 @@ extension PresentationViewController: PresentationView {
     
     func loadSlide(slide: Slide) {
         if slide.type == .image {
+            playerController.player?.pause()
             playerController.view.isHidden = true
             slideImageView.image = UIImage(named: slide.content)
         } else {
