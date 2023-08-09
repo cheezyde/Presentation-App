@@ -23,6 +23,7 @@ final class SlidePresenter {
         }
     }
     
+    // MARK: - Initializer
     init(presentationView: PresentationView, slideService: SlideService) {
         self.presentationView = presentationView
         self.slideService = slideService
@@ -55,7 +56,8 @@ final class SlidePresenter {
     }
     
     public func initialSetup() {
-        getSlide()    }
+        getSlide()
+    }
 }
 
 

@@ -15,6 +15,7 @@ final class PresentationViewController: UIViewController {
     // MARK: - Properties
     var presenter: SlidePresenter?
     private let playerController = AVPlayerViewController()
+    
     // MARK: - UI
     private lazy var slideContainer: UIView = {
         let view = UIView()
@@ -57,7 +58,6 @@ final class PresentationViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupSlide()
-        view.backgroundColor = UIColor(named: "PrimaryColor")
     }
     
 
@@ -66,9 +66,8 @@ final class PresentationViewController: UIViewController {
         [slideContainer,
          backButton,
          nextButton].forEach {view.addSubview($0)}
-        slideContainer.addSubview(slideImageView)
-        slideContainer.addSubview(playerController.view)
-        view.backgroundColor = .white
+        [slideImageView, playerController.view].forEach({slideContainer.addSubview($0)})
+        view.backgroundColor = UIColor(named: "PrimaryColor")
     }
     
     private func setupSlide() {
@@ -77,17 +76,18 @@ final class PresentationViewController: UIViewController {
     }
     
     // MARK: - Action
-    @objc func prevButtonTapped() {
+    @objc private func prevButtonTapped() {
         if let presenter = presenter {
             presenter.loadPreviousSlide()
         }
     }
 
-    @objc func nextButtonTapped() {
+    @objc private func nextButtonTapped() {
         if let presenter = presenter {
             presenter.loadNextSlide()
         }
     }
+    
     // MARK: - Setup Constraints:
     private func setupConstraints() {
         
@@ -120,7 +120,8 @@ final class PresentationViewController: UIViewController {
         }
     }
 }
-// MARK: - Presentater
+
+// MARK: - Presenter
 extension PresentationViewController: PresentationView {
     func setupInitialButtons() {
         backButton.isHidden = true
