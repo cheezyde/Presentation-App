@@ -6,11 +6,11 @@
 //
 
 final class SlideService {
-    let slides = [Slide(type: .video, content: "barbie_video"),
+    private let slides = [Slide(type: .video, content: "barbie_video"),
                   Slide(type: .image, content: "MVP_test_intro"),
                   Slide(type: .image, content: "MVP_test (dragged)"),
                   Slide(type: .image, content: "MVP_test (dragged) 2")]
-    func fetchSlide(index: Int, callBack: @escaping (Slide, Int) -> Void){
+    public func fetchSlide(index: Int, callBack: @escaping (Slide, Int) -> Void){
         callBack(slides[index], slides.count)
     }
 }

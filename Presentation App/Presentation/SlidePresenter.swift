@@ -10,7 +10,7 @@ import Foundation
 final class SlidePresenter {
     // MARK: - Properties
     private let slideService: SlideService
-    weak var presentationView: PresentationView?
+    private weak var presentationView: PresentationView?
     private var slidesTotal = 0
     private var currentIndex = 0 {
         didSet {

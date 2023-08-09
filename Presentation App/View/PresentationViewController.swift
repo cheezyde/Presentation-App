@@ -13,7 +13,7 @@ import AVFoundation
 final class PresentationViewController: UIViewController {
     
     // MARK: - Properties
-    var presenter: SlidePresenter?
+    private var presenter: SlidePresenter?
     private let playerController = AVPlayerViewController()
     
     // MARK: - UI
@@ -59,7 +59,6 @@ final class PresentationViewController: UIViewController {
         setupConstraints()
         setupSlide()
     }
-    
 
     // MARK: - Setup Views
     private func setupViews() {
@@ -90,7 +89,6 @@ final class PresentationViewController: UIViewController {
     
     // MARK: - Setup Constraints:
     private func setupConstraints() {
-        
         slideContainer.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(100)
