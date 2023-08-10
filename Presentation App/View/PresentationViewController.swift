@@ -89,8 +89,8 @@ final class PresentationViewController: UIViewController {
     
     // MARK: - Setup Constraints:
     private func setupConstraints() {
-        let slideContainerHeight = 550
-        let slideContainerWidth = 750
+        let slideContainerHeight = 455
+        let slideContainerWidth = 770
         let slideHeight = slideContainerHeight - 50
         let slideWidth = slideContainerWidth - 50
         
@@ -109,8 +109,8 @@ final class PresentationViewController: UIViewController {
 
         slideImageView.snp.makeConstraints { make in
             make.center.equalTo(slideContainer)
-            make.height.equalTo(500)
-            make.width.equalTo(700)
+            make.height.equalTo(slideHeight)
+            make.width.equalTo(slideWidth)
         }
         
         backButton.snp.makeConstraints { make in
